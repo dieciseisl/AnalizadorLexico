@@ -1,0 +1,37 @@
+Matricula: bk1000
+Nombre y apellidos: Verde Brown, Candidato S.
+Nota teorica: 9.9
+Nota practica: 4.01
+* solamente la teoria superada, practica con errores de compilacion
+
+
+Matricula: ba1000
+Nombre y apellidos: Estrella Roja, W. Bratislov
+Nota teorica: 7,51
+Nota practica: 5.97
+*todo bien
+Matricula: ab0999
+Nombre y apellidos: Amarillo Canario, Pajaro
+Nota teorica: 4,01
+Nota practica: 3,59
+* teoria no superada, practica no compila
+
+Matricula: zz0110
+Nombre y apellidos: Torres Derribadas, Palacio R.
+Nota teorica: 3.0
+Nota practica: 6,45
+* teoria no superada
+
+Matricula: zz0110
+Nombre y apellidos: Torres Derribadas, Palacio R.
+Nota teorica: 3.0
+Nota practica: 6,45
+
+Matricula: ab0999
+Nombre y apellidos: Amarillo Canario, Pajaro
+Nota teorica: 4,01
+Nota practica: 3,59
+Matricula: bk0100
+Nombre y apellidos: Verde Brown, Candidato S.
+Nota teorica: 9.9
+Nota practica: 4.01

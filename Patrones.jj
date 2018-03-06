@@ -1,0 +1,37 @@
+options {Ignore_Case = false;  Build_Parser=false; }
+
+PARSER_BEGIN (Texto)
+public class Texto { }
+PARSER_END (Texto)
+
+TOKEN: { < # caracter : ~["\n","\r"] > } //cualquiera menos los dos que estan ahi son caracter
+TOKEN: { < # letras : ["a"-"z"]> } //letras para la matricula
+TOKEN: { < # mayusculas : ["A"-"Z"]> } //mayusculas para el nombre y los apellidos
+TOKEN: { < # digitos : ["0"-"9"]> } //digitos para la matricula y para los decimales
+TOKEN: { < # suspenso : ["0"-"4"]> } //nota del suspenso
+TOKEN: { < # aprobado : ["5"-"9"]> } //nota del aprobado
+TOKEN: { < # coma : [","]> } //coma del decimal
+TOKEN: { < # punto : ["."]> } //punto del decimal o nombre compuesto
+TOKEN: { < # matricula : <letras><letras><nummatricula> > } //definicion de una matricula
+TOKEN: { < # nummatricula: ("0"["1"-"9"]<digitos><digitos>)|("1000") >}
+//TOKEN: { < # nonummatricula : ~[<nummatricula>]> }
+TOKEN: { < # blancos : [" ","\t"]> } //los blancos, que son el espacio y el tabulador
+TOKEN: { < # finlinea : "\n" | "\r\n" >  } //fin de linea, el salto y el retorno de carro más salto
+TOKEN: { < # nombresimple : (<mayusculas>)+ <caracter><caracter><caracter>(<caracter>)* > } //nombre o apellido simple
+TOKEN: { < # nombrecompuesto : ((<mayusculas>)+ <punto> <blancos> <nombresimple>) | (<nombresimple> <blancos> (<mayusculas>)+ <punto>) > } //nombre compuesto
+TOKEN: { < # secuencia: "Matricula:" (<blancos>)+ (<matricula>)? (<finlinea>)? "Nombre y apellidos:" (<blancos>)? (<nombresimple>)? (<nombresimple>)? (<coma>)? (<blancos>)? (<nombresimple>|<nombrecompuesto>)+ >}
+TOKEN: { < # opcional: "*" (<caracter>)* >} //quinta linea
+TOKEN: { < # asignaturaaprovada: "Nombre y apellidos:" (<blancos>)? (<nombresimple>)? (<nombresimple>)? (<coma>)? (<blancos>)? (<nombresimple>|<nombrecompuesto>)+ >}
+
+
+
+TOKEN: { < patron1 : (<asignaturaaprovada>)> } //Aprobada la asignatura 
+TOKEN: { < patron2 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<aprobado>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ (<opcional>)+ > } //Aprobada la teoria y suspensa la practica
+TOKEN: { < patron3 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<aprobado>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ (<opcional>)+ > } //Aprobada la practica y suspensa la teoria
+TOKEN: { < patron4 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ (<opcional>)+ > } //Suspensa la teoria y suspensa la practica
+TOKEN: { < patron5 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<aprobado>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ > } //Falta comentario
+TOKEN: { < patron6 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<aprobado>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ > } //Falta comentario
+TOKEN: { < patron7 : (<secuencia>)+ (<finlinea>)+ "Nota teorica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ "Nota practica:" (<blancos>)+ (<suspenso>)? (((<coma>)?|(<punto>)?) (<digitos>)*)? (<finlinea>)+ > } //Falta comentario
+
+//TOKEN: { < otroCaracter : ~[] > }
+SKIP :    {<~[]>}
