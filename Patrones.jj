@@ -13,14 +13,15 @@ TOKEN: { < # punto : ["."]> }
 TOKEN: { < # blancos : [" ","\t"]> }
 TOKEN: { < # finlinea : "\n" | "\r\n" >  }
 TOKEN: { < # suspenso : ["0"-"4"]> }
-TOKEN: { < # aprobado : ["5"-"9"]|"10" > }
+TOKEN: { < # aprobado : ["5"-"9"] > }
+TOKEN: { < # maxaprobado : "10" > }
 TOKEN: { < # matri : <letras><letras><nummatricula> > }
 TOKEN: { < # nummatricula: ("0"["1"-"9"]<digitos><digitos>)|("1000") >}
 TOKEN: { < # nombresimple : <mayusculas> <caracter><caracter>(<caracter>)+ > }
 TOKEN: { < # nombrecompuesto : (<mayusculas> <punto> <blancos> <nombresimple>) | (<nombresimple> <blancos> <mayusculas> <punto>) > }
-TOKEN: { < # teoriaaprobada: "Nota teorica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # teoriaaprobada: "Nota teorica:" <blancos> ((<aprobado> ((<coma>|<punto>) (<digitos>){1,2})?) | <maxaprobado> ) >}
 TOKEN: { < # teoriasuspensa: "Nota teorica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
-TOKEN: { < # practicaaprobada: "Nota practica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # practicaaprobada: "Nota practica:" <blancos> ((<aprobado> ((<coma>|<punto>) (<digitos>){1,2})?) | <maxaprobado> ) >}
 TOKEN: { < # practicasuspensa: "Nota practica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
 TOKEN: { < # matricula: "Matricula:" (<blancos>)+ <matri> >}
 TOKEN: { < # nombreyapellidos: "Nombre y apellidos:" <blancos> <nombresimple> <nombresimple> <coma> <blancos> (<nombresimple>|<nombrecompuesto>) >}
