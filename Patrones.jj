@@ -18,18 +18,23 @@ TOKEN: { < # matri : <letras><letras><nummatricula> > }
 TOKEN: { < # nummatricula: ("0"["1"-"9"]<digitos><digitos>)|("1000") >}
 TOKEN: { < # nombresimple : <mayusculas> <caracter><caracter>(<caracter>)* > }
 TOKEN: { < # nombrecompuesto : (<mayusculas> <punto> <blancos> <nombresimple>) | (<nombresimple> <blancos> <mayusculas> <punto>) > }
+TOKEN: { < # teoriaaprobada: "Nota teorica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # teoriasuspensa: "Nota teorica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # practicaaprobada: "Nota practica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # practicasuspensa: "Nota practica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
+TOKEN: { < # matricula: "Matricula:" (<blancos>)+ <matri> >}
+TOKEN: { < # nombreyapellidos: "Nombre y apellidos:" <blancos> <nombresimple> <nombresimple> <coma> <blancos> (<nombresimple>|<nombrecompuesto>) >}
+TOKEN: { < # opcional: "*" (<caracter>)* >} 
 
-TOKEN: { < teoriaaprobada: "Nota teorica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
-TOKEN: { < teoriasuspensa: "Nota teorica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
-TOKEN: { < practicaaprobada: "Nota practica:" <blancos> <aprobado> ((<coma>|<punto>) (<digitos>){1,2})? >}
-TOKEN: { < practicasuspensa: "Nota practica:" <blancos> <suspenso> ((<coma>|<punto>) (<digitos>){1,2})? >}
-TOKEN: { < matricula: "Matricula:" (<blancos>)+ <matri> (<finlinea>)+ >}
-TOKEN: { < nombreyapellidos: "Nombre y apellidos:" <blancos> <nombresimple> <nombresimple> <coma> <blancos> (<nombresimple>|<nombrecompuesto>) >}
-TOKEN: { < opcional: "*" (<caracter>)* >} 
-TOKEN: { < patron1 : <matricula> <nombreyapellidos> (<finlinea>)+ <teoriaaprobada> (<finlinea>)+ <practicaaprobada> (<finlinea>)+ (<opcional>)? > } 
-TOKEN: { < patron2 : <matricula> <nombreyapellidos> (<finlinea>)+ <teoriaaprobada> (<finlinea>)+ <practicasuspensa> (<finlinea>)+ (<opcional>)+ > }
-TOKEN: { < patron3 : <matricula> <nombreyapellidos> (<finlinea>)+ <teoriasuspensa> (<finlinea>)+ <practicaaprobada> (<finlinea>)+ (<opcional>)+ > }
-TOKEN: { < patron4 : <matricula> <nombreyapellidos> (<finlinea>)+ <teoriasuspensa> (<finlinea>)+ <practicasuspensa> (<finlinea>)+ (<opcional>)+ > }
+TOKEN: { < mat: <matricula> >} 
+TOKEN: { < nomAp: <nombreyapellidos> >} 
+TOKEN: { < tApro: <teoriaaprobada> >} 
+TOKEN: { < pApro: <practicaaprobada> >} 
+TOKEN: { < com: <opcional> >}  
+TOKEN: { < bl: <blancos> >}  
+TOKEN: { < patron2 : <matricula> (<finlinea>)+ <nombreyapellidos> (<finlinea>)+ <teoriaaprobada> (<finlinea>)+ <practicasuspensa> (<finlinea>)+ (<opcional>)+ > }
+TOKEN: { < patron3 : <matricula> (<finlinea>)+ <nombreyapellidos> (<finlinea>)+ <teoriasuspensa> (<finlinea>)+ <practicaaprobada> (<finlinea>)+ (<opcional>)+ > }
+TOKEN: { < patron4 : <matricula> (<finlinea>)+ <nombreyapellidos> (<finlinea>)+ <teoriasuspensa> (<finlinea>)+ <practicasuspensa> (<finlinea>)+ (<opcional>)+ > }
 TOKEN: { < findelinea: <finlinea> >}
 
 //TOKEN: { < otroCaracter : ~[] > }
